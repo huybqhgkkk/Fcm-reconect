@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fcm_apps_title">Trợ lý ứng dụng FCM</string>
+    <string name="fcm_apps_summary">Phát hiện các ứng dụng đã cài có khai báo thành phần nhận FCM/GCM tiêu chuẩn, sau đó kiểm tra trạng thái Tự khởi động HyperOS khi ROM cho phép đọc.</string>
+    <string name="scan_fcm_apps">Quét ứng dụng FCM</string>
+    <string name="collapse_fcm_apps">Thu gọn danh sách ứng dụng</string>
+    <string name="open_autostart_manager">Cấu hình tất cả trong HyperOS</string>
+    <string name="fcm_apps_not_scanned">Chạm Quét ứng dụng FCM để tạo danh sách cục bộ.</string>
+    <string name="fcm_apps_found">Đã phát hiện %1$d ứng dụng hỗ trợ FCM</string>
+    <string name="fcm_apps_status_summary">%1$d đã phát hiện · %2$d đã bật · %3$d cần chú ý · %4$d chưa rõ</string>
+    <string name="fcm_autostart_status_unavailable">Đã phát hiện %1$d ứng dụng FCM. HyperOS không cho đọc trạng thái Tự khởi động trên bản dựng này. Hãy dùng Cấu hình tất cả trong HyperOS.</string>
+    <string name="no_fcm_apps">Không phát hiện ứng dụng FCM hướng người dùng nào.</string>
+    <string name="app_settings">Tự khởi động</string>
+    <string name="autostart_enabled">Đã bật</string>
+    <string name="autostart_partial">Một phần</string>
+    <string name="autostart_disabled">Đã tắt</string>
+    <string name="autostart_unknown">Chưa rõ</string>
+    <string name="autostart_manager_unavailable">Không thể mở cài đặt Tự khởi động HyperOS</string>
+    <string name="app_settings_unavailable">Không thể mở cài đặt ứng dụng</string>
+    <string name="fcm_detection_note">Trạng thái Tự khởi động chỉ đọc và mang tính nỗ lực tốt nhất. Chưa rõ nghĩa là HyperOS đã chặn hoặc không cho truy vấn AppOps của nhà cung cấp; FCM Guard không bao giờ coi Chưa rõ là Đã tắt.</string>
+
+    <string name="appearance_title">Giao diện</string>
+    <string name="appearance_summary">Mặc định: theo hệ thống. Tùy chọn này chỉ thay đổi chủ đề giao diện và không thêm tác vụ nền.</string>
+    <string name="theme_system">Hệ thống</string>
+    <string name="theme_light">Sáng</string>
+    <string name="theme_dark">Tối</string>
+
+    <string name="fallback_interval_title">Chu kỳ kiểm tra dự phòng</string>
+    <string name="fallback_interval_summary">Tần suất lưới an toàn chạy nền kiểm tra lại danh sách cho phép. Thay đổi thời gian thực vẫn được bắt ngay lập tức; chu kỳ dài hơn giúp tiết kiệm pin. Mặc định là 30 phút.</string>
+    <string name="fallback_interval_30">30 phút</string>
+    <string name="fallback_interval_45">45 phút</string>
+    <string name="fallback_interval_60">60 phút</string>
+</resources>

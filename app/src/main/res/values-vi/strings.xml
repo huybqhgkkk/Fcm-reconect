@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FCM Guard</string>
+    <string name="subtitle">Bảo vệ FCM âm thầm cho HyperOS</string>
+    <string name="label_key">Khóa cài đặt</string>
+    <string name="label_item">Mục bắt buộc</string>
+    <string name="save_configuration">Lưu cấu hình</string>
+    <string name="grant_modify">Cấp quyền Sửa đổi cài đặt hệ thống</string>
+    <string name="repair_now">Sửa ngay</string>
+    <string name="wake_fcm">Đánh thức FCM ngay</string>
+    <string name="open_fcm_diag">Mở chẩn đoán FCM</string>
+    <string name="status_title">Trạng thái</string>
+    <string name="current_value_title">Giá trị danh sách trắng hiện tại</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="follow_system">Theo hệ thống</string>
+    <string name="english">English</string>
+    <string name="simplified_chinese">简体中文</string>
+    <string name="default_key">MILLET_NO_RESTRICT_APP</string>
+    <string name="default_required_item">com.google.android.gms</string>
+
+    <string name="protection_title">Bảo vệ</string>
+    <string name="automatic_protection">Bảo vệ tự động</string>
+    <string name="automatic_protection_summary">Giám sát theo sự kiện chỉ với khóa danh sách trắng FCM. Việc kiểm tra dự phòng 30 phút không đánh thức thiết bị chỉ dùng để bảo đảm.</string>
+    <string name="persistent_notification">Thông báo thường trực</string>
+    <string name="persistent_notification_summary">Khuyến nghị BẬT để đạt độ tin cậy cao nhất. TẮT để bỏ thông báo thường trực và dùng chế độ chạy nền; khi đó HyperOS có thể dừng dịch vụ dễ dàng hơn.</string>
+    <string name="actions_title">Công cụ</string>
+    <string name="advanced_title">Cấu hình nâng cao</string>
+
+    <string name="helper_text">Thiết kế tiết kiệm điện: dịch vụ không còn thăm dò mỗi 30 giây, không theo dõi các cài đặt hệ thống không liên quan, và chỉ gửi yêu cầu kết nối lại FCM sau khi thực sự sửa danh sách trắng.</string>
+    <string name="note_text">Khuyến nghị trên HyperOS: giữ Tự khởi động được bật và chế độ pin đặt là Không giới hạn. Không cần Tùy chọn nhà phát triển, Gỡ lỗi USB hay Gỡ lỗi không dây.</string>
+
+    <string name="status_protected">Đã bảo vệ</string>
+    <string name="status_ready">Sẵn sàng</string>
+    <string name="status_attention">Cần chú ý</string>
+    <string name="status_granted">Sửa đổi cài đặt: đã cấp</string>
+    <string name="status_not_granted">Sửa đổi cài đặt: chưa cấp</string>
+    <string name="status_enabled">Bảo vệ tự động: đã bật</string>
+    <string name="status_disabled">Bảo vệ tự động: đã tắt</string>
+    <string name="present_yes">Mục bắt buộc đã có: có</string>
+    <string name="present_no">Mục bắt buộc đã có: không</string>
+    <string name="notification_mode_foreground">Chế độ nền: dịch vụ tiền cảnh</string>
+    <string name="notification_mode_quiet">Chế độ nền: chạy nền âm thầm</string>
+
+    <string name="saved">Đã lưu cấu hình</string>
+    <string name="repaired">Đã sửa / được bảo vệ</string>
+    <string name="already_protected">Đã được bảo vệ</string>
+    <string name="missing_current">(thiếu)</string>
+    <string name="permission_missing">Chưa cấp quyền Sửa đổi cài đặt hệ thống</string>
+    <string name="service_started">Đã bắt đầu bảo vệ tự động</string>
+    <string name="service_stopped">Đã dừng bảo vệ tự động</string>
+    <string name="wake_sent">Đã gửi tín hiệu nhịp / kết nối lại</string>
+    <string name="diagnostics_unavailable">Không tìm thấy màn hình chẩn đoán FCM</string>
+    <string name="write_rejected">Hệ thống từ chối ghi</string>
+    <string name="write_failed">Ghi thất bại: %1$s</string>
+
+    <string name="notification_channel_name">Bảo vệ FCM Guard</string>
+    <string name="notification_channel_description">Thông báo ưu tiên thấp dùng để duy trì bảo vệ FCM tự động một cách ổn định</string>
+    <string name="notification_active">Đang bảo vệ · theo sự kiện</string>
+    <string name="notification_repaired">Đã sửa danh sách trắng · FCM được bảo vệ</string>
+
+    <!-- Setup guide -->
+    <string name="guide_title">Hướng dẫn thiết lập</string>
+    <string name="guide_intro">Thực hiện các bước sau một lần để thông báo đẩy FCM đến đáng tin cậy.</string>
+    <string name="guide_step1">1. Cấp quyền “Sửa đổi cài đặt hệ thống”.</string>
+    <string name="guide_step2">2. Chạm “Sửa ngay” một lần để thêm Google Play services vào danh sách trắng.</string>
+    <string name="guide_step3">3. Bật “Bảo vệ tự động”.</string>
+    <string name="guide_step4">4. Trong HyperOS, bật Tự khởi động cho FCM Guard và đặt chế độ pin thành “Không giới hạn”.</string>
+    <string name="guide_step5">5. Giữ “Thông báo thường trực” bật, và cho phép thông báo nếu hệ thống chặn.</string>
+    <string name="guide_step6">6. Tùy chọn: quét ứng dụng FCM và cấu hình những ứng dụng còn nhận trễ.</string>
+    <string name="guide_btn_grant">Cấp quyền</string>
+    <string name="guide_btn_repair">Sửa ngay</string>
+    <string name="guide_btn_protection">Bật bảo vệ tự động</string>
+    <string name="guide_btn_autostart">Mở Tự khởi động HyperOS</string>
+    <string name="guide_btn_notification">Mở cài đặt thông báo</string>
+    <string name="guide_btn_scan">Quét ứng dụng FCM</string>
+</resources>

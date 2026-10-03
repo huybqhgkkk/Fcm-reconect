@@ -1,0 +1,16 @@
+{
+  "verdict": "APPROVED",
+  "findings": [
+    {
+      "severity": "non-blocking",
+      "label": "Unescaped double quotes in base + vi step strings",
+      "detail": "guide_step1/2/3/4/5 in values/strings.xml and values-vi/strings.xml use balanced ASCII double quotes, which aapt2 consumes as whitespace-span delimiters and strips from the rendered text, so the quoted UI terms display without quotes. Compiles without error and does not crash. To preserve the quotes, escape as \\\" or use typographic quotes as the other nine locales already do.",
+      "files": [
+        "app/src/main/res/values/strings.xml",
+        "app/src/main/res/values-vi/strings.xml"
+      ],
+      "confidence": "confirmed"
+    }
+  ],
+  "reviewDoc": "d:\\Project\\Media Archive\\FCMGuard-HyperOS-main/.agents/tasks/review.md"
+}

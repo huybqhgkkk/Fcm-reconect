@@ -1,0 +1,133 @@
+package com.reed.fcmguard;
+
+import android.app.LocaleManager;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.os.Build;
+import android.os.LocaleList;
+
+import java.util.Locale;
+
+public final class LocaleHelper {
+    private static final String PREFS = "guard_state";
+    private static final String KEY_LANG = "ui_language";
+    private static final String KEY_MIGRATED = "native_locale_migrated";
+    private static final String KEY_DEFAULT_APPLIED = "default_locale_applied";
+
+    /** App-wide default UI language on a fresh install (before the user picks one). */
+    public static final String DEFAULT_LANGUAGE = "vi";
+
+    private LocaleHelper() {}
+
+    /** Android 13+ uses LocaleManager; older Android keeps a small compatibility path. */
+    public static Context apply(Context context) {
+        if (Build.VERSION.SDK_INT >= 33) return context;
+
+        String code = getLegacyLanguage(context);
+        if ("system".equals(code)) return context;
+
+        Locale locale = Locale.forLanguageTag(code);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration(context.getResources().getConfiguration());
+        config.setLocale(locale);
+        return context.createConfigurationContext(config);
+    }
+
+    public static String getLanguage(Context context) {
+        if (Build.VERSION.SDK_INT >= 33) {
+            LocaleManager localeManager = (LocaleManager) context.getSystemService(Context.LOCALE_SERVICE);
+            if (localeManager == null) return "system";
+            LocaleList locales = localeManager.getApplicationLocales();
+            if (locales == null || locales.isEmpty()) return "system";
+            return normalize(locales.get(0).toLanguageTag());
+        }
+        return getLegacyLanguage(context);
+    }
+
+    public static void setLanguage(Context context, String code) {
+        String normalized = normalize(code);
+        if (Build.VERSION.SDK_INT >= 33) {
+            LocaleManager localeManager = (LocaleManager) context.getSystemService(Context.LOCALE_SERVICE);
+            if (localeManager == null) return;
+            LocaleList locales = "system".equals(normalized)
+                    ? LocaleList.getEmptyLocaleList()
+                    : LocaleList.forLanguageTags(normalized);
+            localeManager.setApplicationLocales(locales);
+            return;
+        }
+
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                .edit()
+                .putString(KEY_LANG, normalized)
+                .apply();
+    }
+
+    /**
+     * On a fresh install, make Vietnamese the default UI language until the user picks one.
+     * Android 13+ keeps the choice in LocaleManager, so this applies the default exactly once
+     * and never overrides a locale the user (or the migration bridge) already set. Older
+     * Android resolves the default through getLegacyLanguage()'s fallback instead.
+     */
+    public static void applyDefaultLanguageOnce(Context context) {
+        if (Build.VERSION.SDK_INT < 33) return;
+
+        SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        if (prefs.getBoolean(KEY_DEFAULT_APPLIED, false)) return;
+
+        LocaleManager localeManager = (LocaleManager) context.getSystemService(Context.LOCALE_SERVICE);
+        if (localeManager == null) return;
+
+        LocaleList current = localeManager.getApplicationLocales();
+        if (current == null || current.isEmpty()) {
+            localeManager.setApplicationLocales(LocaleList.forLanguageTags(DEFAULT_LANGUAGE));
+        }
+        prefs.edit().putBoolean(KEY_DEFAULT_APPLIED, true).apply();
+    }
+
+    /** One-time bridge from the pre-v1.4.4 custom language preference. */
+    public static void migrateLegacyPreference(Context context) {
+        if (Build.VERSION.SDK_INT < 33) return;
+
+        SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        if (prefs.getBoolean(KEY_MIGRATED, false)) return;
+
+        String legacy = normalize(prefs.getString(KEY_LANG, "system"));
+        prefs.edit().putBoolean(KEY_MIGRATED, true).remove(KEY_LANG).apply();
+
+        LocaleManager localeManager = (LocaleManager) context.getSystemService(Context.LOCALE_SERVICE);
+        if (localeManager == null || "system".equals(legacy)) return;
+        LocaleList current = localeManager.getApplicationLocales();
+        if (current == null || current.isEmpty()) {
+            localeManager.setApplicationLocales(LocaleList.forLanguageTags(legacy));
+        }
+    }
+
+    private static String getLegacyLanguage(Context context) {
+        return normalize(context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                .getString(KEY_LANG, DEFAULT_LANGUAGE));
+    }
+
+    private static String normalize(String code) {
+        if (code == null || code.trim().isEmpty() || "system".equalsIgnoreCase(code)) {
+            return "system";
+        }
+
+        String lower = code.toLowerCase(Locale.ROOT);
+        if (lower.startsWith("zh-tw") || lower.startsWith("zh-hk") ||
+                lower.startsWith("zh-mo") || lower.contains("hant")) {
+            return "zh-TW";
+        }
+        if (lower.startsWith("zh")) return "zh-CN";
+        if (lower.startsWith("fr")) return "fr";
+        if (lower.startsWith("ja")) return "ja";
+        if (lower.startsWith("ko")) return "ko";
+        if (lower.startsWith("es")) return "es";
+        if (lower.startsWith("pt")) return "pt";
+        if (lower.startsWith("de")) return "de";
+        if (lower.startsWith("ru")) return "ru";
+        if (lower.startsWith("vi")) return "vi";
+        if (lower.startsWith("en")) return "en";
+        return "system";
+    }
+}
